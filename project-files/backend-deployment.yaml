@@ -15,7 +15,16 @@ spec:
     spec:
       containers:
         - name: backend
-          image: looogyyyy/backend:latest
+          image: rawdaessamrou/backend:v2
           ports:
             - containerPort: 5000
           imagePullPolicy: Always
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "rootpassword"
+            - name: MYSQL_DATABASE
+              value: "projectdb"
+            - name: MYSQL_USER
+              value: "projectuser"
+            - name: MYSQL_PASSWORD
+              value: "projectpassword"

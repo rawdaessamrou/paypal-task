@@ -1,22 +1,6 @@
-# Base image
-FROM alpine:3.18
- 
-# Install Python and pip
-RUN apk add --no-cache python3 py3-pip
- 
-# Set working directory
+FROM python:3.8-slim
 WORKDIR /app
- 
-# Copy dependencies file and install
 COPY requirements.txt .
-RUN pip3 install --no-cache-dir -r requirements.txt
- 
-# Copy application source code
+RUN pip install -r requirements.txt
 COPY . .
- 
-# Expose the Flask default port
-EXPOSE 5000
- 
-# Run the Flask app with Gunicorn for production
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "app:app"]
- 
+CMD ["python","app.py"]

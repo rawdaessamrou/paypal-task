@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   name: project-ingress
   namespace: default
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
@@ -19,7 +17,7 @@ spec:
                 port:
                   number: 80
           - path: /submit
-            pathType: Prefix
+            pathType: Exact
             backend:
               service:
                 name: backend-service
