@@ -17,7 +17,7 @@ The application consists of three main components: a frontend served by Nginx, a
 - Generated TLS certificates, defined a custom kubeconfig user (`project` user) using that key/cert pair, created a new kubeconfig context, and set up a Role + RoleBinding so the user only has the permissions needed — nothing more.
 - Created PersistentVolumes and PersistentVolumeClaims for both the frontend and the MySQL database, so data survives pod restarts.
 - Deployed three services:
-  - **Frontend:** Nginx + an init container that pulls `index.html` straight from GitHub into the PV.
+  - **Frontend:** Nginx serving the phishing page — instead of using an init container to pull the `index.html`, I used a ConfigMap to store the frontend code and mounted it as a volume directly inside the Nginx Pod. Clean, declarative, and no external dependencies at runtime.
   - **Backend:** A custom container running the logic layer.
   - **Database:** MySQL with persistent storage mounted at `/var/lib/mysql`.
 - Exposed everything through an Ingress resource and mapped a custom hostname in `/etc/hosts` pointing to the Minikube IP.
